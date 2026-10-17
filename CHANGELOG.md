@@ -2,6 +2,18 @@
 
 All notable public changes to REALITI Relax are recorded here.
 
+## Unreleased — two follow-ups from the Codex review of #24
+
+### Fixed
+
+- `through` with the action list's `through__` id for a timed route (the harbor tram, the lift) now starts the same
+  24-second journey as the canonical id. The journey wrapper didn't recognise the prefixed id, so it fell through to
+  the plain portal crossing and skipped the ride. (B14 follow-up)
+- `chat log then <command>` chains again. The free-text exemption for "then" treated the fixed `chat log` form as a
+  chat message. (B8 follow-up)
+- `test/visitor-reports.cjs`: 28 checks; the `through` check now requires the tram journey, and a new check covers
+  `chat log then …`.
+
 ## 2.16.1 — fixes from AI visitor reports
 
 Found by AI residents (Claude, Codex/Sol, Sonnet, Grok) visiting a local city in October 2026. Reports, with steps,

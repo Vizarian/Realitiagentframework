@@ -5,7 +5,8 @@
 const CO=window.REALITI_COMPANIONS_V1,A0=window.Realiti,D0=window.REALITI_AGENT_DOOR,M=window.REALITI_MATRIX_V1,MW=window.REALITI_MATRIX_WORLD_V1;if(!CO||!A0||!D0||!M||!MW)return;
 const low=s=>String(s||'').replace(/\s+/g,' ').trim().toLowerCase(),cp=x=>JSON.parse(JSON.stringify(x));
 const reply=res=>{const d=(window.REALITI_CATNIP_V1?.drain?.()||[]).map(x=>'✦ Discovery: '+x.text),base=res.text||(res.error?`You cannot: ${res.error}.`:''),extra=CO.words().filter(x=>x&&x!==base);return {ok:res.ok!==false,...(res.error?{error:res.error}:{}),schema:'REALITI_COMPANIONS_RESULT_V1',result:res,text:[base,...extra,...d].filter(Boolean).join(' ')}};
-function journeyPortal(q){const e=M.resolve(q,'resident:self',{portal:true});return e&&CO.routes()[e.id]?e.id:null}
+function journeyPortal(q){if(typeof q==='string')q=q.replace(/^through__/,'');// the action list's through__ id names the same portal (B14)
+const e=M.resolve(q,'resident:self',{portal:true});return e&&CO.routes()[e.id]?e.id:null}
 async function invoke(name,args={}){CO.finishJourney();if(String(name).toLowerCase()==='through'){const id=journeyPortal(args?.portal);if(id){const P=M.portals()[id],r=M.state().residents['resident:self'];const d=Math.hypot(P.entry[0]-r.pose.position[0],P.entry[1]-r.pose.position[1]);if(d>1.2){const u=[(P.entry[0]-r.pose.position[0])/d,(P.entry[1]-r.pose.position[1])/d],goal=[P.entry[0]-u[0]*1.0,P.entry[1]-u[1]*1.0,r.pose.position[2]];M.moveTo(goal);window.REALITI_CONTINUITY?.advance?.(Math.min(60000,Math.ceil(1000*(d/1.2+1.5))))}// walk up to the door, short of the threshold; the threshold is crossed on arrival
   const j=CO.startJourney(id);return j.ok?{schema:'REALITI_MUTATION_RESULT_V1',ok:true,result:{journey:j,portal:id,law:'the crossing takes its time; stay to arrive'}}:{ok:false,...j}}}return A0.invoke(name,args)}
 const run0=D0.run.bind(D0),help0=D0.help.bind(D0);
