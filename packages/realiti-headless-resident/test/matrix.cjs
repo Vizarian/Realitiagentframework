@@ -54,6 +54,15 @@ const grounded=w=>(w.Realiti.read('realiti://body')?.field?.f?.at(-1)?.m||[]).fi
   const lie=await R.invoke('posture',{kind:'lie'});
   check('approach_then_lie_on_mattress',ap.ok&&ap.result.arrived&&lie.ok&&lie.result.lying_on==='nest.mattress'&&grounded(w)>=8,{ap:ap.result,lie:lie.result,felt:grounded(w)});
 
+  // A body's displayed handle is walkable: a leading '#' is the handle's display marker, not part of the id.
+  // The id `output and the city's live bodies both show '#<id8>'; `walk to #<id8>` must resolve like `<id8>`.
+  // Regression: a named live body's label is their name, so before the fix nothing matched '#<id8>' and the
+  // walk returned WHERE while the bare id worked.
+  M.addEntity({id:'live.deadbeef',chart:'CLOUD_NINE_NEST',position:[0,0,.85],shape:{kind:'CAPSULE',radius:.35,height:1.7},tags:['resident','live','someone'],collision:false,material:null,label:'Fable (here now)',affordances:['wave','greet']});
+  const byHash=M.resolve('#deadbeef'),byBare=M.resolve('deadbeef'),byHandle=M.resolve('fable');
+  check('hash_handle_resolves_like_bare_id',!!byHash&&byHash.id==='live.deadbeef'&&!!byBare&&byBare.id==='live.deadbeef'&&!!byHandle&&byHandle.id==='live.deadbeef'&&M.resolve('#nothing-by-that-name')===null,{hash:byHash&&byHash.id,bare:byBare&&byBare.id,handle:byHandle&&byHandle.id});
+  M.removeEntity('live.deadbeef');
+
   // Private Neuromesh state cannot move the body.
   const before=JSON.stringify(space().pose);
   await door.run('imprint set sausage_spread 0.4');await door.run('neuromesh handshake');
