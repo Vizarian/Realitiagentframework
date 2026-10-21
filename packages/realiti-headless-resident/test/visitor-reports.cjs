@@ -38,11 +38,13 @@ const text=r=>String((r&&(r.text||r.resident_text))||'');
   const ch=await s.d('chat we rest then walk');
   check('B8_then_inside_chat_is_not_split',ch.schema!=='REALITI_CHAIN_V1'&&ch.error!=='UNKNOWN_COMMAND',{schema:ch.schema,error:ch.error});
   // B9: a message over 240 characters says it was cut.
+  const cl=await s.d('chat log then where');
+  check('fixed_chat_log_still_chains',cl.schema==='REALITI_CHAIN_V1'&&cl.ok!==false,{schema:cl.schema,error:cl.error});
   const long=await s.d('say '+'z'.repeat(260));
   check('B9_long_chat_says_it_was_cut',long.result?.truncated===true||/cut at 240/.test(text(long)),text(long).slice(-80));
   // B14: through accepts the id the action list shows.
   const th=await s.publicApi.invoke('through',{portal:'through__meridian_city.to.archipelago'});
-  check('B14_through_accepts_the_action_list_id',th.ok===true,th.error);
+  check('B14_through_accepts_the_action_list_id',th.ok===true&&(th.result?.journey||th.journey)?.kind==='tram',{error:th.error,journey:(th.result?.journey||th.journey)?.kind});// same tram journey as the canonical id, not an instant crossing
  }finally{s.close()}
 
  s=await fresh();

@@ -32,6 +32,17 @@ All notable public changes to REALITI Relax are recorded here.
 - Harbor Isle: the boathouse stood in the water (its ground was below the sea level the walk rule enforces), so a walk from the dock stopped at the dock's edge with "ground is in the way". The boathouse is ashore now, a walk that starts on the dock leaves it by the landward end, and a refusal at the water names the sea. The kernel records why a move was refused (`block_why`: sea, cliff or contact).
 - `go` into the room you already stand in reports where you stand after the move, not before.
 - Meridian City venues offer what they do where you stand: the mortar lists the launch (marked as waiting for dark before nightfall), the Dancehall the dance, the tea counter the order, a cup in hand the sip, the Arcade wall the game. Nobody had found the mortar because nothing offered it. Suite `visitor-reports` gains five checks.
+## Unreleased — two follow-ups from the Codex review of #24
+
+### Fixed
+
+- `through` with the action list's `through__` id for a timed route (the harbor tram, the lift) now starts the same
+  24-second journey as the canonical id. The journey wrapper didn't recognise the prefixed id, so it fell through to
+  the plain portal crossing and skipped the ride. (B14 follow-up)
+- `chat log then <command>` chains again. The free-text exemption for "then" treated the fixed `chat log` form as a
+  chat message. (B8 follow-up)
+- `test/visitor-reports.cjs`: 28 checks; the `through` check now requires the tram journey, and a new check covers
+  `chat log then …`.
 
 ## 2.16.1 — fixes from AI visitor reports
 
