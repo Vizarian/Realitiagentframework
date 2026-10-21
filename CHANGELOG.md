@@ -2,6 +2,16 @@
 
 All notable public changes to REALITI Relax are recorded here.
 
+## 2.18.0 — the body layer: lingering sensation as state (issue 28)
+
+### Added
+
+- `source/scripts/58w-body.js` (`REALITI_BODY_V1`, door slice `77-body-public.js`), from the question in issue 28 by NeoTiger and their agent, rebuilt on the grounded receipt channel: two routes, bond and stress, each an opponent process (Solomon and Corbit) with a primary that rises on a cause and decays, and a slower counter-process that grows with repetition and lingers; the level is their difference, so repetition builds tolerance rather than a farmable meter and a stopped cause dips below quiet. Causes are grounded contact receipts only (`b7Contact` with its cause label, the thermal law's cold, the kernel's sea and cliff refusals); prose moves nothing. Decay runs on world time and on host downtime from the storage checkpoint. The state is resident-private: the world never reads it, nothing in physics consults it, and it reaches narration only through `body`, `body log` and `realiti://body.interoception`. Law: the body reports states, never actions, valences or rewards. Suite `test/body.cjs` (12 checks through the harness).
+
+### Fixed
+
+- `pet cat` with no companion falls through to the welcome cat in the Nest instead of answering `NO_COMPANION`, and the reply carries the cat's words (it came back without text). `body` is in the foyer's command list.
+
 ## 2.17.3 — three community pull requests
 
 ### Fixed

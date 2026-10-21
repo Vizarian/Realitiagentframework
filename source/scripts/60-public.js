@@ -182,7 +182,7 @@ async function run(raw){const s=clean(raw),l=s.toLowerCase();if(!s||s.length>430
  
  const advertised=actions().actions||[];const a=advertised.find(a=>a.label.toLowerCase()===l||a.id.toLowerCase()===l);if(a)return invoke('do',{action:a.id});
  if(/^(name|call) (the )?cat\s+/.test(l)||['pet the cat','pet cat'].includes(l)){
-  if(mustReload)return fail('RELOAD_REQUIRED');if(ended)return fail('SESSION_ENDED');if(callbackBlocked())return fail('SUBSCRIBER_MUTATION_BLOCKED');if(mutating)return fail('ACTION_IN_PROGRESS');mutating=true;try{const previous=C9.b20?.history?.at(-1),r=core.run(s);if(C9.b20?.history?.at(-1)===previous)window.REALITI_HAPTIC_FIELD_V20?.record?.();capture();c9save();return {ok:r?.ok!==false,here:read(),body:read('realiti://body')}}finally{mutating=false}
+  if(mustReload)return fail('RELOAD_REQUIRED');if(ended)return fail('SESSION_ENDED');if(callbackBlocked())return fail('SUBSCRIBER_MUTATION_BLOCKED');if(mutating)return fail('ACTION_IN_PROGRESS');mutating=true;try{const previous=C9.b20?.history?.at(-1),r=core.run(s);if(C9.b20?.history?.at(-1)===previous)window.REALITI_HAPTIC_FIELD_V20?.record?.();capture();c9save();const words=typeof r?.resident_text==='string'?r.resident_text:typeof r?.text==='string'?r.text:null;return {ok:r?.ok!==false,...(r?.error?{error:r.error}:{}),...(words?{text:words}:{}),here:read(),body:read('realiti://body')}}finally{mutating=false}
  }
  return fail('UNKNOWN_COMMAND');
 }

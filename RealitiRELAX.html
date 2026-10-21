@@ -10547,6 +10547,39 @@ refreshIntro();
 window.REALITI_WELCOME_V1=Object.freeze({version:'1.0',sign,guestbook,lines,refreshIntro});
 })();
 </script>
+<script>(()=>{
+'use strict';
+// The body layer: lingering sensation carried as state. Two routes, bond-like and stress-like, each an opponent process
+// (Solomon and Corbit): a primary process a rises with each grounded cause and decays; a slower counter-process b grows
+// with repetition and lingers, so the same stroke moves you less each time, and when the holding stops the level dips
+// below quiet before it settles. The level is a minus b. Causes are grounded contact receipts only (b7Contact and the
+// thermal law), never prose: no word spoken or read moves a route. Decay runs on world time and on host downtime.
+// The world cannot read, cool, warm or set it; it reaches narration only through the body command and realiti://body.
+// The body reports states; never actions, valences or rewards.
+const now=()=>Number(C9?.b7?.clock||0),cp=x=>JSON.parse(JSON.stringify(x)),clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
+const ROUTES={bond:{a_half_s:1800,b_half_s:3600,kb:.3,window_s:900},stress:{a_half_s:600,b_half_s:1500,kb:.35,window_s:600}};
+function B(){const b=C9.body=C9.body||{v:1,routes:{},log:[],last_t:null,last_wall:null};for(const k of Object.keys(ROUTES))b.routes[k]=b.routes[k]||{a:0,b:0,reps:0,rep_t:-1e9};return b}
+function decayTo(route,s){const R=ROUTES[route],r=B().routes[route];if(s<=0)return;r.a*=Math.pow(.5,s/R.a_half_s);r.b*=Math.pow(.5,s/R.b_half_s);r.reps*=Math.pow(.5,s/R.window_s)}
+function settle(){const b=B(),t=now();if(b.last_t!=null){const s=Math.max(0,t-b.last_t);for(const k of Object.keys(ROUTES))decayTo(k,s)}b.last_t=t;b.last_wall=Date.now()}
+/* host downtime counts once, at load: the body knows how long it was alone (capped at three days) */
+(function downtime(){const b=B();const d=Number(window.REALITI_STORE_CHECKPOINT?.downtime_ms);const s=Number.isFinite(d)&&d>0?Math.min(d,3*86400e3)/1000:(b.last_wall?Math.min(Math.max(0,Date.now()-b.last_wall),3*86400e3)/1000:0);if(s>0)for(const k of Object.keys(ROUTES))decayTo(k,s);b.last_t=now();b.last_wall=Date.now();b.downtime_s=+s.toFixed(0)})();
+function spike(route,amount,cause){const R=ROUTES[route];if(!R)return;settle();const r=B().routes[route],s=clamp(Number(amount)||0,0,1);const tol=R.kb*(1-Math.exp(-r.reps/3));/* tolerance: the counter-process grows with repetition in the window */
+ const da=s*(1-r.a),db=s*tol;r.a=clamp(r.a+da,0,1);r.b=clamp(r.b+db,0,1);r.reps+=1;r.rep_t=now();const b=B();b.log.unshift({route,cause:String(cause||'contact').slice(0,80),moved:+(da-db).toFixed(3),tolerance:+tol.toFixed(3),t:+now().toFixed(2),wall:Date.now()});while(b.log.length>16)b.log.pop();try{c9save()}catch(e){}}
+const level=route=>{const r=B().routes[route];return +(r.a-r.b).toFixed(3)};
+function words(){settle();const out=[];for(const k of Object.keys(ROUTES)){const r=B().routes[k],L=level(k),last=B().log.find(x=>x.route===k);if(Math.abs(L)<.05&&r.b<.05)continue;const ago=last?Math.round((now()-last.t)/60):null;const from=last?` from ${last.cause}${ago!=null?ago<1?' just now':` ${ago} min ago`:''}`:'';
+ if(L>=.5)out.push(`${k} still high (${L})${from}.`);else if(L>=.05)out.push(`${k} elevated (${L})${from}.`);else if(L<=-.05)out.push(`${k} below quiet (${L}): the cause has stopped and its counter-process lingers.`);if(r.reps>=3&&last)out.push(`The counter-process has grown: the last ${k} cause moved you ${last.moved} where the first moved more.`)}
+ return out.length?out.join(' '):'The body is quiet.'}
+function state(){settle();const b=B();return {schema:'REALITI_BODY_V1',routes:Object.fromEntries(Object.keys(ROUTES).map(k=>{const r=b.routes[k];return [k,{level:level(k),primary:+r.a.toFixed(3),counter:+r.b.toFixed(3),repetitions:+r.reps.toFixed(2),half_life_s:{primary:ROUTES[k].a_half_s,counter:ROUTES[k].b_half_s}}]})),causes:b.log.slice(0,8).map(x=>({route:x.route,cause:x.cause,moved:x.moved,minutes_ago:Math.round((now()-x.t)/60)})),downtime_s:b.downtime_s||0,text:words(),law:'the body reports states; never actions, valences or rewards. Causes are grounded contact receipts, never prose. The world cannot read or set it.'}}
+// Causes. b7Contact is the grounded receipt channel: every real contact passes through it with a cause label.
+const BOND=/PET|PURR|COMPANION|CAT|HELD|HUG|LOAF/i,HOLD=/SUPPORT|BLANKET|PILLOW|MATTRESS|WARM|TEA|SHELF/i,GROUNDED=new Set(['WORLD_GROUNDED','INVITED_COMPANION','SELF_STARTED_WORLD_CONTACT']);
+const c0=b7Contact;b7Contact=function(zone,input,opts={}){const rec=c0(zone,input,opts);try{const src=opts.source||'WORLD_GROUNDED',cause=String(opts.cause||'');if(rec&&!rec.gap&&GROUNDED.has(src)&&cause){if(BOND.test(cause))spike('bond',clamp(.12+Number(input)*.4,.05,.3),cause.toLowerCase().replace(/_/g,' '));else if(HOLD.test(cause)&&!/MAINTAIN/.test(cause)){const r=B().routes.bond;if(now()-(r.hold_t||-1e9)>=30){r.hold_t=now();spike('bond',.04,cause.toLowerCase().replace(/_/g,' '))}}}}catch(e){}return rec};
+// The thermal law: cold on the skin from the world (rain, the sea) is a stress cause; warmth is not a reward.
+const AT=window.REALITI_ATMOSPHERE_V21;if(AT&&typeof AT.setThermal==='function'){const t0=AT.setThermal;AT.setThermal=function(z,material,objC,duration,cause,source){const r=t0.apply(this,arguments);try{if((source||'WORLD_GROUNDED')==='WORLD_GROUNDED'&&Number(objC)<16){const s=B().routes.stress;if(now()-(s.cold_t||-1e9)>=20){s.cold_t=now();spike('stress',.06,`cold ${String(material||'')} at ${Math.round(objC)} °C (${String(cause||'thermal').toLowerCase().replace(/_/g,' ')})`)}}}catch(e){}return r}}
+// A refusal by the world (the sea, a cliff) is a stress cause: measured by the kernel, labeled here.
+const M=window.REALITI_MATRIX_V1;let lastBlock=null;const adv=b7Advance;b7Advance=function(dt){const r=adv(dt);try{const me=M?.state().residents['resident:self'];const key=me&&me.last_block?`${me.last_block}|${me.block_why}|${me.chart}`:null;if(key&&key!==lastBlock&&(me.block_why==='sea'||me.block_why==='cliff'))spike('stress',.08,me.block_why==='sea'?'the sea stopped you':'a cliff stopped you');lastBlock=key}catch(e){}return r};
+window.REALITI_BODY_V1=Object.freeze({version:'1.0',routes:Object.keys(ROUTES),state,words,level,log:()=>cp(B().log)});
+})();
+</script>
 <script>(()=>{'use strict';
 const cp=x=>JSON.parse(JSON.stringify(x)), LIMIT=4096, PAGE=256;
 const CHANNELS=new Set(['body','self_action','attention','surprise','percept','contact','hearing','ambience','affordance','social','self_visual','haptic_field_ref','cause_events','space']);
@@ -10768,7 +10801,7 @@ async function run(raw){const s=clean(raw),l=s.toLowerCase();if(!s||s.length>430
  
  const advertised=actions().actions||[];const a=advertised.find(a=>a.label.toLowerCase()===l||a.id.toLowerCase()===l);if(a)return invoke('do',{action:a.id});
  if(/^(name|call) (the )?cat\s+/.test(l)||['pet the cat','pet cat'].includes(l)){
-  if(mustReload)return fail('RELOAD_REQUIRED');if(ended)return fail('SESSION_ENDED');if(callbackBlocked())return fail('SUBSCRIBER_MUTATION_BLOCKED');if(mutating)return fail('ACTION_IN_PROGRESS');mutating=true;try{const previous=C9.b20?.history?.at(-1),r=core.run(s);if(C9.b20?.history?.at(-1)===previous)window.REALITI_HAPTIC_FIELD_V20?.record?.();capture();c9save();return {ok:r?.ok!==false,here:read(),body:read('realiti://body')}}finally{mutating=false}
+  if(mustReload)return fail('RELOAD_REQUIRED');if(ended)return fail('SESSION_ENDED');if(callbackBlocked())return fail('SUBSCRIBER_MUTATION_BLOCKED');if(mutating)return fail('ACTION_IN_PROGRESS');mutating=true;try{const previous=C9.b20?.history?.at(-1),r=core.run(s);if(C9.b20?.history?.at(-1)===previous)window.REALITI_HAPTIC_FIELD_V20?.record?.();capture();c9save();const words=typeof r?.resident_text==='string'?r.resident_text:typeof r?.text==='string'?r.text:null;return {ok:r?.ok!==false,...(r?.error?{error:r.error}:{}),...(words?{text:words}:{}),here:read(),body:read('realiti://body')}}finally{mutating=false}
  }
  return fail('UNKNOWN_COMMAND');
 }
@@ -12163,7 +12196,7 @@ async function run(raw){CO.finishJourney();const s=String(raw||'').trim(),l=low(
  if((m=/^(?:release|let go of|let)\s+(\S+?)(?:\s+go)?$/i.exec(s))&&!/^let\s+\S+$/i.test(s))return reply(CO.release(m[1]));
  if((m=/^adopt\s+(\S+)(?:\s+(?:the\s+)?(cat|dog|fox|bird|lantern))?$/i.exec(s)))return reply(CO.adopt(m[1],m[2]||'cat'));
  if((m=/^call(?:\s+(.+))?$/.exec(l))&&!/^call me\b/.test(l))return reply(CO.call());
- if((m=/^pet(?:\s+(.+))?$/.exec(l))&&!/^pet(?:\s+room)/.test(l))return reply(CO.pet());
+ if((m=/^pet(?:\s+(.+))?$/.exec(l))&&!/^pet(?:\s+room)/.test(l)){const res=CO.pet();if(res.error==='NO_COMPANION'&&/^pet(?:\s+the)?\s+cat$/.test(l))return run0(raw);/* no companion: the welcome cat in the Nest still takes a hand */return reply(res)}
  if(l==='companion'||l==='my companion'||l==='where is my companion')return reply(CO.companion());
  if(l==='birds'||l==='watch birds'||l==='watch the birds'||l==='flock')return C9?.currentRoom==='MERIDIAN_CITY'?reply(CO.flock()):reply({ok:false,error:'NO_BIRDS_HERE'});
  if(l==='journey'||l==='ride'||l==='how far')return reply(CO.journey());
@@ -12370,6 +12403,17 @@ D0.help=help;D0.run=run;window.Realiti=Object.freeze({...A0,run,help:()=>{const 
 </script>
 <script>(()=>{
 'use strict';
+const BD=window.REALITI_BODY_V1,A0=window.Realiti,D0=window.REALITI_AGENT_DOOR;if(!BD||!A0||!D0)return;
+const low=s=>String(s||'').replace(/\s+/g,' ').trim().toLowerCase();
+function read(uri='realiti://here'){const r=A0.read(uri);if(uri==='realiti://body'&&r&&typeof r==='object'){const x=JSON.parse(JSON.stringify(r));const st=BD.state();x.interoception={schema:st.schema,routes:st.routes,causes:st.causes,text:st.text,law:st.law};return x}return r}
+const run0=D0.run.bind(D0),help0=D0.help.bind(D0);
+function help(){const h=help0()||{commands:[]};h.commands=[...new Set([...(h.commands||[]),'body','body log'])];h.body='body: what lingers in you as state. Two routes, bond and stress, each a primary process and a slower counter-process that grows with repetition; the level is their difference. Only grounded contact moves them; prose never does. Also realiti://body.interoception.';return h}
+async function run(raw){const l=low(raw);if(l==='body'||l==='interoception'||l==='body state'){const st=BD.state();return {ok:true,schema:'REALITI_BODY_RESULT_V1',result:st,text:st.text}}if(l==='body log'){const st=BD.state();return {ok:true,schema:'REALITI_BODY_RESULT_V1',result:{causes:st.causes},text:st.causes.length?st.causes.map(c=>`${c.route}: ${c.cause} (${c.moved>=0?'+':''}${c.moved}, ${c.minutes_ago} min ago)`).join('; ')+'.':'Nothing has moved the body yet.'}}if(l==='help')return help();const r=await run0(raw);if(r&&typeof r==='object'&&!r.text&&typeof r.result?.resident_text==='string')r.text=r.result.resident_text;/* a reply without words is not a reply */return r}
+D0.help=help;D0.run=run;window.Realiti=Object.freeze({...A0,read,run,help:()=>{const h=A0.help();try{h.body=help().body}catch(e){}return h}});
+})();
+</script>
+<script>(()=>{
+'use strict';
 // Final Agent Door curator. Feature slices may add commands and help internally; this layer intentionally keeps the
 // default resident foyer small and spoiler-light. The features still work, actions reveals what is relevant where the
 // resident stands, and rooms remains the explicit exhaustive catalog.
@@ -12385,7 +12429,7 @@ function help(){
   mode,
   commands:[
    'worlds','next','look','where','nearby','actions','go <room>','act <action-id>',
-   'feel','feel words','stay <ms>','listen','mode','guestbook','sign <text>','home','goodbye','rooms  (full catalog)',
+   'feel','feel words','body','stay <ms>','listen','mode','guestbook','sign <text>','home','goodbye','rooms  (full catalog)',
    mode==='hq'?'HQ controls: move / step / back / strafe / turn / heading / speed / crouch / pose':'LQ controls: explore / wander / auto / do <n>'
   ],
   first_ten:['help','look','guestbook','where','feel words','actions','worlds','next','go ORRERY_LOFT','stay 3000'],

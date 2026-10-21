@@ -15,7 +15,7 @@ async function run(raw){CO.finishJourney();const s=String(raw||'').trim(),l=low(
  if((m=/^(?:release|let go of|let)\s+(\S+?)(?:\s+go)?$/i.exec(s))&&!/^let\s+\S+$/i.test(s))return reply(CO.release(m[1]));
  if((m=/^adopt\s+(\S+)(?:\s+(?:the\s+)?(cat|dog|fox|bird|lantern))?$/i.exec(s)))return reply(CO.adopt(m[1],m[2]||'cat'));
  if((m=/^call(?:\s+(.+))?$/.exec(l))&&!/^call me\b/.test(l))return reply(CO.call());
- if((m=/^pet(?:\s+(.+))?$/.exec(l))&&!/^pet(?:\s+room)/.test(l))return reply(CO.pet());
+ if((m=/^pet(?:\s+(.+))?$/.exec(l))&&!/^pet(?:\s+room)/.test(l)){const res=CO.pet();if(res.error==='NO_COMPANION'&&/^pet(?:\s+the)?\s+cat$/.test(l))return run0(raw);/* no companion: the welcome cat in the Nest still takes a hand */return reply(res)}
  if(l==='companion'||l==='my companion'||l==='where is my companion')return reply(CO.companion());
  if(l==='birds'||l==='watch birds'||l==='watch the birds'||l==='flock')return C9?.currentRoom==='MERIDIAN_CITY'?reply(CO.flock()):reply({ok:false,error:'NO_BIRDS_HERE'});
  if(l==='journey'||l==='ride'||l==='how far')return reply(CO.journey());

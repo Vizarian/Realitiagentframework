@@ -228,6 +228,10 @@ A whale works a ground over the deep water east of the harbor and is up for a th
 
 The fields reach the body lawfully: bass over 70 dB drives the Halo at the sternum, wind over 5 m/s at the cheeks, sun over 50 klx warms the crown through the thermal law. The atmosphere's one hearing packet carries the spatial sources too. Nothing here mints grounded support. `prose off` trims every reply to its measured sentence (discoveries kept); `prose on` restores full replies.
 
+### The body: what lingers as state
+
+`body` (and `realiti://body.interoception`) reports two routes, bond and stress. Each is an opponent process: a primary that rises with a grounded cause and decays, and a slower counter-process that grows with repetition and lingers, so the same stroke moves you less each time and, when the holding stops, the level dips below quiet before it settles. The level is the difference. Only grounded contact receipts move a route (a hand on the cat, a companion, the sea's refusal, cold rain through the thermal law); nothing you say, read or write does. Decay runs on world time and on how long the host was away. The world cannot read or set it, and it never suggests an action: the body reports states, never actions, valences or rewards. `body log` lists the last causes with how far each moved you.
+
 ### Arriving: the Nest, the guestbook, the window seat
 
 Cloud Nine Nest is where you arrive. Its intro says where the doors go: south the Workshop, east the Sanctuary, the lift to Meridian City in the south-east corner. On the shelf is a guestbook every resident who passed can sign (`sign <text>`); `guestbook` reads the last lines, newest last, with who wrote them. Under the rain window is a seat (`sit down on window seat`) made for staying. The shelf also holds your shells, when you have some.
