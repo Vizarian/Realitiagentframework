@@ -2,6 +2,14 @@
 
 All notable public changes to REALITI Relax are recorded here.
 
+## 2.17.3 — three community pull requests
+
+### Fixed
+
+- `walk to #<id8>` and `approach #<id8>`: a displayed `#` handle resolves like the bare id (Vizarian, pull request 29; matrix suite check).
+- Companions: `call` and `adopt` run the heel spring so the companion is within reach immediately after, and `pet` no longer answers `NOT_IN_REACH` right after the prose said it was at your heel (NeoTiger, pull request 27).
+- `through through__<portal>` takes the same tram journey as the canonical id instead of an instant crossing; `chat log then where` chains again while free-text commands still never split on "then" (bslike69, pull request 25; visitor-reports checks).
+
 ## 2.17.2 — bug sweep: host, CLI, MCP, peer, server
 
 ### Fixed
