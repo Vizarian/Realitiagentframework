@@ -12,8 +12,8 @@
     },
     {
       "path": ".github/workflows/headless-agent-door.yml",
-      "bytes": 4416,
-      "sha256": "9c181c8ec4128648706039b5944229f89606f711d51bba012a75c94e01c62d3a"
+      "bytes": 4588,
+      "sha256": "71c4458d1afa54d99be69d4935598bf78881637af91511f3cda49cd720aede9c"
     },
     {
       "path": ".github/workflows/publish-matrix.yml",
@@ -27,8 +27,8 @@
     },
     {
       "path": ".github/workflows/refresh-artifacts.yml",
-      "bytes": 2399,
-      "sha256": "30fa598e1c103b9d2eddea78d34346f5d77756bf246b3b4cecb81808e9a39c92"
+      "bytes": 2430,
+      "sha256": "2f2984a3e1758cd9579f373f42bdc5579814f139409fcc7cfb6a2be13ff782c1"
     },
     {
       "path": ".github/workflows/server-ticket-close.yml",
@@ -57,8 +57,8 @@
     },
     {
       "path": "CHANGELOG.md",
-      "bytes": 61530,
-      "sha256": "3e6199afbf7b87898767f63c4d180f5b78ef701098e0ad2d9ad3e29e1a3f8ac4"
+      "bytes": 62440,
+      "sha256": "38ea2ad66bdcfeeae276fb9b9d090b4e77f8d6be351e91baf2d6142b85468e48"
     },
     {
       "path": "CONTRIBUTING.md",
@@ -77,8 +77,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 49096,
-      "sha256": "372f919eaac5ff8832196176fa300a52949b6e52040e2052690f5e4a010c256e"
+      "bytes": 49434,
+      "sha256": "66a65fb303631e7572e1401a67351a20d05626d0f07c768bff22578047003294"
     },
     {
       "path": "RELEASE_NOTES.md",
@@ -87,8 +87,8 @@
     },
     {
       "path": "RealitiRELAX.html",
-      "bytes": 1571296,
-      "sha256": "05e3b433ad989b81e68ac3addd3935a17b150015520d7e13229a01d3dd167810"
+      "bytes": 1574906,
+      "sha256": "fcce5324bb70fe386fc9b9a8845a523fcb325d587f7b70a113c5a67f29b74926"
     },
     {
       "path": "SECURITY.md",
@@ -102,8 +102,8 @@
     },
     {
       "path": "VALIDATION.json",
-      "bytes": 6050,
-      "sha256": "8d46f58b36d5e4736224b89744f7e218c2d81016c274c14e244fb25df7a559e4"
+      "bytes": 6386,
+      "sha256": "c6252da69b0a34301d846ed8fcbd05e549b5c9cb2d822e98dca556589322d22f"
     },
     {
       "path": "VERTICAL_SLICE.md",
@@ -307,8 +307,8 @@
     },
     {
       "path": "packages/realiti-headless-resident/test/body.cjs",
-      "bytes": 4295,
-      "sha256": "48e95d11b3bdb9e09385dbdd82ce0d8ce849f72f5a43676afc61d0432043d394"
+      "bytes": 4647,
+      "sha256": "7644e0c2cac9f77b662d98e2d1087ab7ca4a8a28b0eea7e7a44032fdffbcdbde"
     },
     {
       "path": "packages/realiti-headless-resident/test/catnip.cjs",
@@ -382,8 +382,8 @@
     },
     {
       "path": "packages/realiti-headless-resident/test/matrix-portable.cjs",
-      "bytes": 2141,
-      "sha256": "724a226359bae23857e4d69b367f0a03aba55d80e12ef38f921d15e6a24913f1"
+      "bytes": 3145,
+      "sha256": "d53f068b2b08059ff38654353b37ba6b51500f99ff1f7491da9c097975118654"
     },
     {
       "path": "packages/realiti-headless-resident/test/matrix.cjs",
@@ -996,6 +996,11 @@
       "sha256": "842a10a18dfa7ef234265666f484185dae96ecab018f72461db58d0ff7013a3a"
     },
     {
+      "path": "source/scripts/57a-matrix-local-evidence.js",
+      "bytes": 3353,
+      "sha256": "2ce826eb1345c46c1c9b1250fd41238ac1335491dc76cb81e5bf55f79bff7e17"
+    },
+    {
       "path": "source/scripts/58-rooms.js",
       "bytes": 17868,
       "sha256": "2396894a56d4834a9abe1b2ce6d88cc5b1c389ffd05e0f81b4b0c66d7fad98ec"
@@ -1102,8 +1107,8 @@
     },
     {
       "path": "source/scripts/58w-body.js",
-      "bytes": 6141,
-      "sha256": "837c5f0f335c7a1a65c16e124204c5647941ec7cec4ce598aa22a6936da2ffc2"
+      "bytes": 6336,
+      "sha256": "b567a7fc4ed9483bc0488e599976680f1c8d056733991104783291d53f89ffb1"
     },
     {
       "path": "source/scripts/59-continuity.js",
@@ -1207,8 +1212,8 @@
     },
     {
       "path": "source/template.html",
-      "bytes": 10181,
-      "sha256": "47e6ba0b7435628d9b9a2196a01779625e098b7a11f4bc3dc0a1512f66fedbd8"
+      "bytes": 10285,
+      "sha256": "8aea8bbb4d80939daa688b7e461d151779110ad60ea91d24b838d1996a5bf766"
     },
     {
       "path": "tests/public-contract-smoke.cjs",
