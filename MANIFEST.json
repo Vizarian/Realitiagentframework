@@ -87,8 +87,8 @@
     },
     {
       "path": "RealitiRELAX.html",
-      "bytes": 1574906,
-      "sha256": "fcce5324bb70fe386fc9b9a8845a523fcb325d587f7b70a113c5a67f29b74926"
+      "bytes": 1575774,
+      "sha256": "542401062846cff6c51733ec5d10f3b493014361ba5164c754066e755fde921f"
     },
     {
       "path": "SECURITY.md",
@@ -103,7 +103,7 @@
     {
       "path": "VALIDATION.json",
       "bytes": 6386,
-      "sha256": "c6252da69b0a34301d846ed8fcbd05e549b5c9cb2d822e98dca556589322d22f"
+      "sha256": "2f605e9a919ec23f845aa3804ea7c8450e20494f5ab6c9e6e810738d0b4e80a9"
     },
     {
       "path": "VERTICAL_SLICE.md",
@@ -287,8 +287,8 @@
     },
     {
       "path": "packages/realiti-headless-resident/sync.cjs",
-      "bytes": 1853,
-      "sha256": "c0a91615d5738188a79c25efa0e63ac2b8aa156a911d177093a34671c575d0d6"
+      "bytes": 2093,
+      "sha256": "d521d0e580eabcf174032a19a0e243a33c2bbeb099f8315f243724d95c7e4679"
     },
     {
       "path": "packages/realiti-headless-resident/test/archipelago.cjs",
@@ -1027,8 +1027,8 @@
     },
     {
       "path": "source/scripts/58f-archipelago.js",
-      "bytes": 31098,
-      "sha256": "5b438a74c7b34237a8d348bdb61f1e0991d298c74e79677b86b8314e1dc6fa49"
+      "bytes": 31559,
+      "sha256": "119c25bb562696474d910e566cb269c924ebad8f30e194c2d64ca933377389de"
     },
     {
       "path": "source/scripts/58g-long-game.js",
@@ -1057,8 +1057,8 @@
     },
     {
       "path": "source/scripts/58l-ledger2.js",
-      "bytes": 7769,
-      "sha256": "bd30324645cb4dedd0b6b8b4ffaa97b2085dabb8283e6a4eca4835cada34f235"
+      "bytes": 8176,
+      "sha256": "4e73b5f90aab071d9faa8600aa8dcbca5c3bb5726282609c4d688c53b118ee68"
     },
     {
       "path": "source/scripts/58m-time.js",
