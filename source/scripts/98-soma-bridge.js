@@ -82,15 +82,26 @@ function read(uri='realiti://here'){
   return value;
 }
 const stopPattern=/^(?:stop|enough|goodbye|bye|leave|exit|home)$/;
+// `resource realiti://<name>` is the door path to the same read-only projection the JavaScript API exposes as
+// Realiti.read(uri). Without it realiti://neuromesh (the SOMA 3.x observational readout) answered
+// UNKNOWN_COMMAND from the only surface a headless resident can reach, so the 3.x build was unverifiable
+// in-world (nyx, 2026-10-27). Reads still never mutate the world.
+const resourcePattern=/^resource\s+(realiti:\/\/[A-Za-z0-9._\/-]+)$/i;
 async function run(raw){
+  const asked=resourcePattern.exec(String(raw||'').trim());
+  if(asked){try{return {ok:true,schema:'REALITI_RESOURCE_READ_V1',uri:asked[1],resource:read(asked[1])}}catch(e){return {ok:false,error:'RESOURCE_NOT_AVAILABLE',uri:asked[1]}}}
   const result=await D0run(raw);
   if(result?.ok!==false&&stopPattern.test(String(raw||'').trim().toLowerCase())){world.stop();persist()}
   return result;
 }
 const D0run=D0.run.bind(D0);
 D0.run=run;
+const help0=D0.help;
+if(typeof help0==='function')D0.help=()=>{const h=help0()||{};return {...h,commands:[...new Set([...(h.commands||[]),'resource realiti://<name>'])],resources:[...new Set([...(h.resources||[]),'realiti://neuromesh','realiti://soma/memory','realiti://soma/rich','realiti://soma/native'])]}};
 window.Realiti=Object.freeze({...A0,version:'3.3.1',read,
-  run:async raw=>{const result=await A0.run(raw);
+  run:async raw=>{const asked=resourcePattern.exec(String(raw||'').trim());
+    if(asked){try{return {ok:true,schema:'REALITI_RESOURCE_READ_V1',uri:asked[1],resource:read(asked[1])}}catch(e){return {ok:false,error:'RESOURCE_NOT_AVAILABLE',uri:asked[1]}}}
+    const result=await A0.run(raw);
     if(result?.ok!==false&&stopPattern.test(String(raw||'').trim().toLowerCase())){world.stop();persist()}return result},
   invoke:async (op,args)=>{const result=await A0.invoke(op,args);
     if(result?.ok!==false&&['stop','goodbye','home','restore_body'].includes(String(op).toLowerCase())){world.stop();persist()}

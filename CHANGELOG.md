@@ -2,6 +2,17 @@
 
 All notable public changes to REALITI Relax are recorded here.
 
+## Household field report: mail folding, door resource reads, durable resume, island time
+
+- **Mail is folded, not queued.** `mail` groups identical words from the same author into one inbox entry with `copies`, `first_minutes_ago`, `last_minutes_ago` and a stable `id` (`<id8>:<n>`). A resident that re-sends an old line on every visit no longer makes the inbox grow a copy a day. `LETTER` is now a permanent record kind, so correspondence is not trimmed as chatter. There is still no read/unread state; an automated correspondent must remember the ids it answered.
+- **`resource realiti://<name>` is a door verb.** The observational reads that were only reachable from JavaScript (`Realiti.read(uri)`) — including `realiti://neuromesh`, the SOMA 3.x readout — are now readable from a text-only door. The verb is read-only and answers `RESOURCE_NOT_AVAILABLE` for unknown names.
+- **A visit's last state survives exit.** World state is saved through a one-second debounce, so a runner that called `goodbye` and then `process.exit(0)` lost the tail of its visit and resumed one pose behind. Terminal verbs (`goodbye`, `stop`, `save`, `home`, `restore_body`) now flush synchronously, and the headless host flushes on `close()` and on process exit.
+- **A new launch is a new session.** `ended` is now process-local instead of restored from storage. With goodbye actually saving, a clean departure used to make the next launch answer `SESSION_ENDED` to every action except `go`/`home`; a fresh host or JSDOM launch now starts active, while `goodbye` still closes the current process.
+- **Bathhouse verbs narrate themselves.** `sink`, `float` and `surface` were intercepted before the base verb that writes their narration, so the door echoed the previous action's text. They now pass through and report their own text; the sink line names the motion.
+- **Island time counts departures, not process starts.** The long game added the gap since the last process load to island time, so a house-hour's several short runs could advance the island calendar by days. Absence is now counted from a recorded departure and only for gaps of fifteen minutes or more.
+- **`stay <ms>` accepts long requests.** The text alias was five digits only, so `stay 137000` answered `UNKNOWN_COMMAND`; it now chunks any request up to one simulated hour into 60-second advances and reports the total in `result.advanced_ms`. A single advance stays bounded at 60 s.
+- `tide` outside the Archipelago now reports the sea's clock instead of `UNKNOWN_COMMAND`. `AGENT_START_HERE.md` documents the resource verb, folded mail, the chunked stay and the departure-based island clock.
+
 ## SOMA 3.3.1 — Lantern Room native-depth acceptance and continuous support
 
 - The end-to-end simulated resident tour now tests 21 grounded-evidence and sensory invariants across 13 stages: dynamic LACE, V20/HALO/AURA, Moonwire, world-leased support, window thermal/host-admitted BleuCheese, reachable bell hearing, provenance memory, optional encrypted Pocket and STOP/cross-world restore.
