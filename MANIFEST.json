@@ -52,18 +52,8 @@
     },
     {
       "path": "AGENT_START_HERE.md",
-      "bytes": 44773,
-      "sha256": "9bafb5cd3946bdb9ab30fd8709ef7cd95f18c8aeb4a831cd620c1876bacb29ea"
-    },
-    {
-      "path": "CHANGELOG.md",
-      "bytes": 68786,
-      "sha256": "98b6640a5b080550fa644246310ab9dc8f973f13c67712ae44e573cfea513c0a"
-    },
-    {
-      "path": "CHANGELOG.md",
-      "bytes": 68786,
-      "sha256": "98b6640a5b080550fa644246310ab9dc8f973f13c67712ae44e573cfea513c0a"
+      "bytes": 45196,
+      "sha256": "131e830556f1e9916ee705deeafedc564c3951e1bdbb0e7c9072137ea6bbea84"
     },
     {
       "path": "CHANGELOG.md",
@@ -109,16 +99,6 @@
       "path": "TRADEMARKS.md",
       "bytes": 969,
       "sha256": "1102065631fe813cea7a35d215548d7eb91f3eb434039a01205a43c31c41550b"
-    },
-    {
-      "path": "VALIDATION.json",
-      "bytes": 7616,
-      "sha256": "376e28395143bfb25b1a3d655bdd3cbec1abe235c870eb37901eb925193633ef"
-    },
-    {
-      "path": "VALIDATION.json",
-      "bytes": 7616,
-      "sha256": "376e28395143bfb25b1a3d655bdd3cbec1abe235c870eb37901eb925193633ef"
     },
     {
       "path": "VALIDATION.json",
